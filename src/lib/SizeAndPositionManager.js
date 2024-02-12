@@ -33,7 +33,6 @@ import { ALIGNMENT } from '$lib/constants.js';
  */
 
 export default class SizeAndPositionManager {
-
 	/**
 	 * @param {Options} options
 	 */
@@ -108,9 +107,7 @@ export default class SizeAndPositionManager {
 
 	checkForMismatchItemSizeAndItemCount() {
 		if (Array.isArray(this.itemSize) && this.itemSize.length < this.itemCount) {
-			throw Error(
-				`When itemSize is an array, itemSize.length can't be smaller than itemCount`,
-			);
+			throw Error(`When itemSize is an array, itemSize.length can't be smaller than itemCount`);
 		}
 	}
 
@@ -140,7 +137,7 @@ export default class SizeAndPositionManager {
 
 			this.itemSizeAndPositionData[i] = {
 				offset,
-				size,
+				size
 			};
 		}
 
@@ -151,7 +148,6 @@ export default class SizeAndPositionManager {
 		return this.lastMeasuredIndex;
 	}
 
-
 	/**
 	 * This method returns the size and position for the item at the specified index.
 	 *
@@ -159,9 +155,7 @@ export default class SizeAndPositionManager {
 	 */
 	getSizeAndPositionForIndex(index) {
 		if (index < 0 || index >= this.itemCount) {
-			throw Error(
-				`Requested index ${index} is outside of range 0..${this.itemCount}`,
-			);
+			throw Error(`Requested index ${index} is outside of range 0..${this.itemCount}`);
 		}
 
 		return this.justInTime
@@ -178,8 +172,7 @@ export default class SizeAndPositionManager {
 	getJustInTimeSizeAndPositionForIndex(index) {
 		if (index > this.lastMeasuredIndex) {
 			const lastMeasuredSizeAndPosition = this.getSizeAndPositionOfLastMeasuredItem();
-			let offset =
-				    lastMeasuredSizeAndPosition.offset + lastMeasuredSizeAndPosition.size;
+			let offset = lastMeasuredSizeAndPosition.offset + lastMeasuredSizeAndPosition.size;
 
 			for (let i = this.lastMeasuredIndex + 1; i <= index; i++) {
 				const size = this.getSize(i);
@@ -190,7 +183,7 @@ export default class SizeAndPositionManager {
 
 				this.itemSizeAndPositionData[i] = {
 					offset,
-					size,
+					size
 				};
 
 				offset += size;
@@ -307,7 +300,7 @@ export default class SizeAndPositionManager {
 
 		return {
 			start,
-			stop,
+			stop
 		};
 	}
 
@@ -346,8 +339,8 @@ export default class SizeAndPositionManager {
 			// If we've already measured items within this range just use a binary search as it's faster.
 			return this.binarySearch({
 				high: lastMeasuredIndex,
-				low:  0,
-				offset,
+				low: 0,
+				offset
 			});
 		} else {
 			// If we haven't yet measured this high, fallback to an exponential search with an inner binary search.
@@ -355,7 +348,7 @@ export default class SizeAndPositionManager {
 			// The overall complexity for this approach is O(log n).
 			return this.exponentialSearch({
 				index: lastMeasuredIndex,
-				offset,
+				offset
 			});
 		}
 	}
@@ -398,18 +391,15 @@ export default class SizeAndPositionManager {
 	exponentialSearch({ index, offset }) {
 		let interval = 1;
 
-		while (
-			index < this.itemCount &&
-			this.getSizeAndPositionForIndex(index).offset < offset
-			) {
+		while (index < this.itemCount && this.getSizeAndPositionForIndex(index).offset < offset) {
 			index += interval;
 			interval *= 2;
 		}
 
 		return this.binarySearch({
 			high: Math.min(index, this.itemCount - 1),
-			low:  Math.floor(index / 2),
-			offset,
+			low: Math.floor(index / 2),
+			offset
 		});
 	}
 }

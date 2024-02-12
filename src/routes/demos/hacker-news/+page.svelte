@@ -10,8 +10,8 @@
 
 	function infiniteHandler({ detail: { loaded, complete } }) {
 		fetch(`${api}&page=${page}`)
-			.then(response => response.json())
-			.then(data => {
+			.then((response) => response.json())
+			.then((data) => {
 				if (data.hits.length) {
 					page += 1;
 					list = [...list, ...data.hits];
@@ -26,7 +26,7 @@
 <div class="app">
 	<header class="hacker-news-header">
 		<a target="_blank" href="http://www.ycombinator.com/">
-			<img src="https://news.ycombinator.com/y18.gif" alt="Logo">
+			<img src="https://news.ycombinator.com/y18.gif" alt="Logo" />
 		</a>
 		<span>Hacker News</span>
 	</header>
@@ -38,9 +38,13 @@
 				<p>
 					<span>{list[index].points}</span>
 					points by
-					<a target="_blank" href="https://news.ycombinator.com/user?id={list[index].author}">{list[index].author}</a>
+					<a target="_blank" href="https://news.ycombinator.com/user?id={list[index].author}"
+						>{list[index].author}</a
+					>
 					|
-					<a target="_blank" href="https://news.ycombinator.com/item?id={list[index].objectID}">{list[index].num_comments} comments</a>
+					<a target="_blank" href="https://news.ycombinator.com/item?id={list[index].objectID}"
+						>{list[index].num_comments} comments</a
+					>
 				</p>
 			</div>
 
@@ -111,7 +115,8 @@
 		margin: 0;
 		font-size: 12px;
 	}
-	.hacker-news-item p, .hacker-news-item p a {
+	.hacker-news-item p,
+	.hacker-news-item p a {
 		color: #888;
 	}
 	.hacker-news-item p a:not(:hover) {
