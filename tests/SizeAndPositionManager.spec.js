@@ -1,5 +1,5 @@
-import SizeAndPositionManager from '../src/SizeAndPositionManager';
-import { ALIGNMENT } from '../src/constants';
+import SizeAndPositionManager from '$lib/SizeAndPositionManager.js';
+import { ALIGNMENT } from '$lib/constants.js';
 
 const ITEM_SIZE = 10;
 const range = N => Array.from({ length: N }, (_, k) => k + 1);

@@ -1,5 +1,5 @@
 /* Forked from react-virtualized 💖 */
-import { ALIGNMENT } from './constants';
+import { ALIGNMENT } from '$lib/constants.js';
 
 /**
  * @callback ItemSizeGetter
